@@ -5,6 +5,7 @@ public class FirstPersonCamera : MonoBehaviour
     public Transform target;  // Reference to the target (capsule) to follow
     public float sensitivity = 2f;  // Mouse look sensitivity
     public Vector2 rotationLimits = new Vector2(-90f, 90f);  // Limits for vertical rotation (up and down)
+    public Vector3 offset = new Vector3(0f, 0.5f, 0f);  // Offset from the target's position
 
     private float rotationX = 0f;  // Current X rotation of the camera
 
@@ -25,10 +26,9 @@ public class FirstPersonCamera : MonoBehaviour
         Quaternion horizontalRotation = Quaternion.Euler(0f, mouseX, 0f);
         Quaternion verticalRotation = Quaternion.Euler(rotationX, 0f, 0f);
 
-        target.Rotate(Vector3.up * mouseX);
-        transform.localRotation = verticalRotation;
+        transform.localRotation *= verticalRotation * horizontalRotation;
 
         // Camera follow
-        transform.position = target.position + target.TransformDirection(Vector3.up) + target.TransformDirection(Vector3.forward) * 0.1f;  // Adjust the offset as per your preference
+        transform.position = target.position + offset;
     }
 }
