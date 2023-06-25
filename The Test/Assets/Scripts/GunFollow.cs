@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Gun : MonoBehaviour
+public class GunFollow : MonoBehaviour
 {
     public Transform gunPosition;  // Reference to the predefined gun position
 
